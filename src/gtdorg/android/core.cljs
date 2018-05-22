@@ -13,6 +13,7 @@
 (def image (r/adapt-react-class (.-Image ReactNative)))
 (def button (r/adapt-react-class (.-Button ReactNative)))
 (def touchable-highlight (r/adapt-react-class (.-TouchableHighlight ReactNative)))
+(def scroll-view (r/adapt-react-class (.-ScrollView ReactNative)))
 
 (def logo-img (js/require "./images/cljs.png"))
 
@@ -24,14 +25,16 @@
     (fn []
       [view {:style {:flex-direction "column" :margin 40 :align-items "center"}}
 
-       [button {:on-press #(dispatch [:initialize-db]) :title "Reset!"}]
+       [button {:on-press #(dispatch [:initialize-db]) :title "Reset!" :color "#841584"}]
        [text-input {:style {:height 40 :width "100%"}
                     :placeholder "Type something.."
                     :on-change-text #(dispatch [:set-greeting %])}]
-       (doall
-        (for [i (range 1 7)]
-          ^{:key i}
-          [text {:style {:font-size 30 :font-weight "100" :margin-bottom 20 :text-align "center"}} (str @greeting " -- " i)]))
+
+       [scroll-view
+        (doall
+         (for [i (range 1 9)]
+           ^{:key i}
+           [text {:style {:font-size 30 :font-weight "100" :margin-bottom 20 :text-align "center"}} (str @greeting " -- " i)]))]
        [image {:source logo-img
                :style  {:width 80 :height 80 :margin-bottom 30}}]
        [touchable-highlight {:style {:background-color "#999" :padding 10 :border-radius 5}
