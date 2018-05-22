@@ -15,13 +15,17 @@
 (def touchable-highlight (r/adapt-react-class (.-TouchableHighlight ReactNative)))
 (def scroll-view (r/adapt-react-class (.-ScrollView ReactNative)))
 
+(defonce listen
+  (.addEventListener (.-AppState ReactNative) "change" #(.log js/console (str "App-state change: " %))))
+
 (def logo-img (js/require "./images/cljs.png"))
 
 (defn alert [title]
-      (.alert (.-Alert ReactNative) title))
+  (.alert (.-Alert ReactNative) title))
 
 (defn app-root []
   (let [greeting (subscribe [:get-greeting])]
+
     (fn []
       [view {:style {:flex-direction "column" :margin 40 :align-items "center"}}
 
