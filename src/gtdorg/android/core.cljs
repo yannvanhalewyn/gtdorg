@@ -11,6 +11,7 @@
 (def text-input (r/adapt-react-class (.-TextInput ReactNative)))
 (def view (r/adapt-react-class (.-View ReactNative)))
 (def image (r/adapt-react-class (.-Image ReactNative)))
+(def button (r/adapt-react-class (.-Button ReactNative)))
 (def touchable-highlight (r/adapt-react-class (.-TouchableHighlight ReactNative)))
 
 (def logo-img (js/require "./images/cljs.png"))
@@ -22,6 +23,8 @@
   (let [greeting (subscribe [:get-greeting])]
     (fn []
       [view {:style {:flex-direction "column" :margin 40 :align-items "center"}}
+
+       [button {:on-press #(dispatch [:initialize-db]) :title "Reset!"}]
        [text-input {:style {:height 40 :width "100%"}
                     :placeholder "Type something.."
                     :on-change-text #(dispatch [:set-greeting %])}]
