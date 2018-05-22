@@ -8,6 +8,7 @@
 
 (def app-registry (.-AppRegistry ReactNative))
 (def text (r/adapt-react-class (.-Text ReactNative)))
+(def text-input (r/adapt-react-class (.-TextInput ReactNative)))
 (def view (r/adapt-react-class (.-View ReactNative)))
 (def image (r/adapt-react-class (.-Image ReactNative)))
 (def touchable-highlight (r/adapt-react-class (.-TouchableHighlight ReactNative)))
@@ -21,7 +22,13 @@
   (let [greeting (subscribe [:get-greeting])]
     (fn []
       [view {:style {:flex-direction "column" :margin 40 :align-items "center"}}
-       [text {:style {:font-size 30 :font-weight "100" :margin-bottom 20 :text-align "center"}} @greeting]
+       [text-input {:style {:height 40 :width "100%"}
+                    :placeholder "Type something.."
+                    :on-change-text #(dispatch [:set-greeting %])}]
+       (doall
+        (for [i (range 1 7)]
+          ^{:key i}
+          [text {:style {:font-size 30 :font-weight "100" :margin-bottom 20 :text-align "center"}} (str @greeting " -- " i)]))
        [image {:source logo-img
                :style  {:width 80 :height 80 :margin-bottom 30}}]
        [touchable-highlight {:style {:background-color "#999" :padding 10 :border-radius 5}
