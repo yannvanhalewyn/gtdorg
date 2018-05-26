@@ -4,12 +4,22 @@ A Clojure library designed to ... well, that part is up to you.
 
 ## Development setup
 
+### Getting the tools and dependencies
+
+``` shell
+$ yarn global add re-natal
+$ yarn global add react-native
+$ yarn install
+```
+
 ### Once, or every time you switch up configs
 
 Recompile index.android.js files:
 
-    $ re-natal use-android-device avd
-    $ re-natal use-figwheel
+``` shell
+$ re-natal use-android-device avd
+$ re-natal use-figwheel
+```
 
 ### Startup emulator with figwheel
 
@@ -20,15 +30,9 @@ or
 - Start the simulator programmatically
 
 ``` shell
-$ cd ~/Library/Android/sdk/tools/`
+$ cd ~/Library/Android/sdk/tools/
 $ ./bin/avdmanager list avd
 $ ./emulator -avd PIXEL_XL_API_26
-```
-
-- Start the react native process in the avd
-
-``` shell
-$ ./node_modules/.bin/react-native run-android
 ```
 
 - Start the repl
@@ -41,6 +45,25 @@ $ lein repl
 
 ``` clojure
 user=> (start-figwheel "android")
+```
+
+- First time installs need to accept licenses.
+
+``` shell
+$ cd ~/Library/Android/sdk/tools/
+$ ./bin/sdkmanager --licenses
+```
+
+- Export the sdk location env variable. If you want use:
+
+``` shell
+$ source bin/export
+```
+
+- Start the react native process in the avd
+
+``` shell
+$ ./node_modules/.bin/react-native run-android
 ```
 
 - Profit
